@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://campaign-domain.example/sitemap.xml
