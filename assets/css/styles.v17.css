@@ -3414,3 +3414,83 @@ section,
     min-height: 15rem;
   }
 }
+
+
+/* =========================================================
+   FULL-IMAGE CAROUSEL SLIDES 04–06
+   Keeps the fixed carousel dimensions while fitting each
+   portrait image completely inside the existing media frame.
+========================================================= */
+
+.record-carousel__media--contain {
+  padding: clamp(0.65rem, 1.5vw, 1rem);
+  background: #ece8df;
+}
+
+.record-carousel__image--contain {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+
+/* =========================================================
+   CONSISTENT FULL-IMAGE CAROUSEL DISPLAY
+   Every carousel image fits entirely inside the fixed media
+   frame. The source clipping crops remain unchanged.
+========================================================= */
+
+.record-carousel__image,
+.record-carousel__image--landscape,
+.record-carousel__image--portrait,
+.record-carousel__image--document,
+.record-carousel__image--contain {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+
+/* =========================================================
+   INTRINSIC CAROUSEL IMAGE FIT
+   Uses each image's natural aspect ratio and constrains it
+   inside the fixed media frame. This prevents portrait images
+   from being clipped by older width/height fill rules.
+========================================================= */
+
+.record-carousel__media,
+.record-carousel__media--landscape,
+.record-carousel__media--portrait,
+.record-carousel__media--document,
+.record-carousel__media--contain {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden;
+}
+
+.record-carousel__media--contain::before {
+  display: none;
+}
+
+.record-carousel__image,
+.record-carousel__image--landscape,
+.record-carousel__image--portrait,
+.record-carousel__image--document,
+.record-carousel__image--contain {
+  position: relative;
+  flex: 0 1 auto;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: auto;
+  object-fit: contain !important;
+  object-position: center !important;
+}
