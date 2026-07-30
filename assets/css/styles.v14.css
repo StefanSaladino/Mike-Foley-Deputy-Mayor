@@ -1662,7 +1662,7 @@ body.menu-open .menu-toggle {
   place-items: center;
   background:
     linear-gradient(rgba(3, 20, 43, 0.78), rgba(3, 20, 43, 0.88)),
-    url("../photos/wasaga-beach-sunset.webp") center / cover no-repeat;
+    url("../photos/wasaga-beach-sunset.webp?v=20260730-1") center / cover no-repeat;
 }
 
 .thank-you-card {
@@ -3249,5 +3249,168 @@ section,
   .privacy-consent,
   .privacy-header__back {
     display: none !important;
+  }
+}
+
+/* =========================================================
+   ARCHIVAL BUSINESS AND LIFE-SAVING FEATURES
+   Added for Mike Foley campaign record updates.
+========================================================= */
+
+.experience-archive {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.1rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 0.25rem solid var(--gold);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.experience-archive__media {
+  display: grid;
+  min-height: 18rem;
+  place-items: center;
+  padding: clamp(0.85rem, 2.5vw, 1.35rem);
+  background: #ece8df;
+}
+
+.experience-archive__image {
+  width: 100%;
+  height: auto;
+  max-height: 46rem;
+  object-fit: contain;
+  box-shadow: 0 14px 34px rgba(3, 20, 43, 0.16);
+}
+
+.experience-archive__content {
+  align-self: center;
+  padding: 0 clamp(1.4rem, 4vw, 2.7rem) clamp(1.6rem, 4vw, 2.7rem);
+}
+
+.experience-archive__content h3 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.experience-archive__content > p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+.lifesaving-feature__media {
+  display: grid;
+  margin: 0;
+  place-items: center;
+  padding: clamp(0.75rem, 2vw, 1.1rem);
+  background: #ece8df;
+}
+
+.lifesaving-feature__image {
+  width: 100%;
+  height: auto;
+  max-height: 32rem;
+  object-fit: contain;
+  box-shadow: 0 12px 30px rgba(3, 20, 43, 0.14);
+}
+
+@media (min-width: 48rem) {
+  .experience-archive {
+    grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+    align-items: stretch;
+  }
+
+  .experience-archive__content {
+    padding: clamp(1.6rem, 4vw, 2.7rem);
+  }
+
+  .lifesaving-feature {
+    grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
+    align-items: center;
+  }
+}
+
+
+/* =========================================================
+   FIXED-SIZE COMMUNITY RECORD CAROUSEL
+   Keeps every slide at one consistent, smaller size while
+   allowing longer copy to scroll inside the content panel.
+========================================================= */
+
+.record-carousel {
+  width: min(100%, 68rem);
+  margin-inline: auto;
+}
+
+.record-carousel__stage {
+  height: 38rem;
+}
+
+.record-carousel__slide {
+  height: 100%;
+  grid-template-rows: 17rem minmax(0, 1fr);
+}
+
+.record-carousel__media,
+.record-carousel__media--portrait,
+.record-carousel__media--document {
+  width: 100%;
+  height: 17rem;
+  min-height: 17rem;
+  aspect-ratio: auto;
+}
+
+.record-carousel__content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.record-carousel__content h4 {
+  font-size: clamp(1.55rem, 5vw, 2.25rem);
+}
+
+@media (min-width: 48rem) {
+  .record-carousel__stage {
+    height: 26rem;
+  }
+
+  .record-carousel__slide,
+  .record-carousel__slide--portrait,
+  .record-carousel__slide--document,
+  .record-carousel__slide--landscape {
+    height: 100%;
+    grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .record-carousel__media,
+  .record-carousel__media--portrait,
+  .record-carousel__media--document {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .record-carousel__content {
+    height: 100%;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+  }
+}
+
+@media (max-width: 30rem) {
+  .record-carousel__stage {
+    height: 36rem;
+  }
+
+  .record-carousel__slide {
+    grid-template-rows: 15rem minmax(0, 1fr);
+  }
+
+  .record-carousel__media,
+  .record-carousel__media--portrait,
+  .record-carousel__media--document {
+    height: 15rem;
+    min-height: 15rem;
   }
 }

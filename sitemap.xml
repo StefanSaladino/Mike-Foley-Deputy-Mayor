@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://campaign-domain.example/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://stefansaladino.github.io/Mike-Foley-Deputy-Mayor/</loc>
+  </url>
+  <url>
+    <loc>https://stefansaladino.github.io/Mike-Foley-Deputy-Mayor/privacy.html</loc>
   </url>
 </urlset>

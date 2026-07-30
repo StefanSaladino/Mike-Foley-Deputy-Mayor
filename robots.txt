@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://stefansaladino.github.io/Mike-Foley-Deputy-Mayor/sitemap.xml
