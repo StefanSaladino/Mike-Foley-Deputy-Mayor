@@ -2664,3 +2664,316 @@ img {
     grid-column: auto;
   }
 }
+
+/* =========================================================
+   REQUESTED CONTENT STRUCTURE — V10
+   Extends the established campaign design without changing
+   the site's typography, colour palette, or visual direction.
+========================================================= */
+
+/* Family feature introduced beneath the existing About layout. */
+.family-feature {
+  display: grid;
+  gap: 0;
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.family-feature__media {
+  min-height: 18rem;
+  overflow: hidden;
+  background: #dfe7ed;
+}
+
+.family-feature__image {
+  width: 100%;
+  height: 100% !important;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 38%;
+}
+
+.family-feature__content {
+  align-self: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.family-feature__content h3 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+}
+
+.family-feature__content > p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+/* Added experience section, styled as an editorial companion to the platform. */
+.experience {
+  background:
+    radial-gradient(circle at 92% 10%, rgba(49, 118, 167, 0.1), transparent 26rem),
+    var(--white);
+}
+
+.experience-grid {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.experience-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+  border: 1px solid var(--line);
+  border-top: 0.25rem solid var(--gold);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.experience-card--navy {
+  border-color: rgba(255, 255, 255, 0.12);
+  border-top-color: var(--gold-bright);
+  background:
+    radial-gradient(circle at 95% 0, rgba(38, 100, 143, 0.3), transparent 19rem),
+    var(--navy-900);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.experience-card__number {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: rgba(7, 29, 58, 0.13);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.7rem, 9vw, 6rem);
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.experience-card--navy .experience-card__number {
+  color: rgba(255, 255, 255, 0.13);
+}
+
+.experience-card__kicker {
+  margin-bottom: 0.55rem;
+  color: #8a651e;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.experience-card--navy .experience-card__kicker {
+  color: var(--gold-bright);
+}
+
+.experience-card h3 {
+  margin-bottom: 0.9rem;
+  font-size: clamp(1.75rem, 4vw, 2.8rem);
+}
+
+.experience-card > p:not(.experience-card__kicker) {
+  color: var(--muted);
+}
+
+.experience-card--navy h3 {
+  color: var(--white);
+}
+
+.experience-card--navy > p:not(.experience-card__kicker) {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.experience-list,
+.trustee-action-list {
+  display: grid;
+  gap: 0.72rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experience-list li,
+.trustee-action-list li {
+  position: relative;
+  padding-left: 1.45rem;
+}
+
+.experience-list li::before,
+.trustee-action-list li::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 0.47rem;
+  height: 0.47rem;
+  transform: rotate(45deg);
+  background: var(--gold);
+  content: "";
+}
+
+.experience-card--navy .experience-list li {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* The new school-safety record uses the site's existing news-card system. */
+.trustee-record-grid {
+  align-items: start;
+}
+
+.news-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.25rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.trustee-action-list {
+  color: var(--muted);
+}
+
+.lifesaving-feature {
+  display: grid;
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 1.1rem;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  border: 1px solid var(--line);
+  border-left: 0.3rem solid var(--gold);
+  background:
+    radial-gradient(circle at 100% 0, rgba(201, 162, 77, 0.13), transparent 18rem),
+    var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.lifesaving-feature__mark {
+  display: grid;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy-900);
+  color: var(--gold-bright);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.lifesaving-feature h3 {
+  margin-bottom: 0.7rem;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+}
+
+.lifesaving-feature p:last-child {
+  max-width: 62rem;
+  color: var(--muted);
+}
+
+/* Sign-request fields appear only when the lawn-sign option is selected. */
+.sign-fields {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid rgba(201, 162, 77, 0.34);
+  background: rgba(243, 229, 189, 0.28);
+}
+
+.sign-fields[hidden] {
+  display: none !important;
+}
+
+.sign-fields__note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+/* Tailored crops for newly supplied community photography. */
+.community-card--relay .community-card__image {
+  object-position: center 26%;
+}
+
+.community-card--fundraiser .community-card__image {
+  object-position: center 24%;
+}
+
+/* Keep the expanded navigation readable at common laptop widths. */
+@media (min-width: 64rem) and (max-width: 75rem) {
+  .site-header__inner {
+    gap: 0.8rem;
+  }
+
+  .campaign-brand__name {
+    font-size: 1.15rem;
+  }
+
+  .campaign-brand__office {
+    font-size: 0.54rem;
+  }
+
+  .primary-navigation__links {
+    gap: 0.52rem;
+  }
+
+  .primary-navigation__links a {
+    font-size: 0.58rem;
+    letter-spacing: 0.035em;
+  }
+
+  .header-volunteer {
+    min-height: 2.55rem;
+    padding-inline: 0.72rem;
+    font-size: 0.58rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .family-feature {
+    grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .family-feature__image {
+    aspect-ratio: auto;
+  }
+
+  .experience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lifesaving-feature {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .trustee-record-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.55fr);
+  }
+
+  .news-card--feature {
+    grid-template-columns: minmax(17rem, 0.78fr) minmax(0, 1.22fr);
+  }
+
+  .family-feature__media {
+    min-height: 28rem;
+  }
+}
+
+@media print {
+  .family-feature,
+  .experience-card,
+  .lifesaving-feature {
+    break-inside: avoid;
+  }
+}
+
+
+/* Prevent sub-pixel card borders from producing a mobile horizontal scrollbar. */
+main,
+section,
+.site-footer {
+  max-width: 100%;
+  overflow-x: clip;
+}
