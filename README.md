@@ -1,35 +1,21 @@
 # Mike Foley for Deputy Mayor
 
-Static, dependency-free campaign website prepared for GitHub Pages preview and later Netlify deployment.
+Static campaign website prepared for GitHub Pages and Netlify.
 
-## Current features
+## Current build
 
-- Campaign homepage with Mike Foley's experience, priorities and community record
-- Eleven-slide accessible community-record carousel
-- Dedicated Wavelength Technologies business feature
-- Dedicated life-saving newspaper feature
-- Privacy policy and first-visit privacy notice
-- Netlify-ready free lawn-sign request form with personal-information consent
+- 13-slide fixed-size carousel
+- Dedicated `*.carousel.v1.webp` renditions at 1920 × 1080
+- Original non-carousel images remain in use elsewhere on the page
+- Privacy policy and consent notice
+- Lawn-sign request form prepared for Netlify Forms
 - Open Graph and social-card metadata
-- Versioned CSS/images and production cache/security headers
+- Production cache and security headers
 
 ## Local preview
 
-```bash
+```powershell
 python -m http.server 8000
 ```
 
 Open `http://localhost:8000/`.
-
-## Validation
-
-```bash
-node --check assets/js/script.v3.js
-node --check assets/js/effects.v1.js
-node --check assets/js/sign-request.v1.js
-node --check assets/js/gallery.v2.js
-node --check assets/js/record-carousel.v3.js
-node --check assets/js/privacy-consent.v1.js
-```
-
-The sign form uses the Netlify form name `lawn-sign-request` and submits to `thank-you.html`.

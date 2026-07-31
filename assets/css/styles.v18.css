@@ -2833,42 +2833,6 @@ img {
   color: var(--muted);
 }
 
-.lifesaving-feature {
-  display: grid;
-  gap: 1.25rem;
-  align-items: start;
-  margin-top: 1.1rem;
-  padding: clamp(1.4rem, 4vw, 2.4rem);
-  border: 1px solid var(--line);
-  border-left: 0.3rem solid var(--gold);
-  background:
-    radial-gradient(circle at 100% 0, rgba(201, 162, 77, 0.13), transparent 18rem),
-    var(--paper);
-  box-shadow: var(--shadow-sm);
-}
-
-.lifesaving-feature__mark {
-  display: grid;
-  width: 3.6rem;
-  height: 3.6rem;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--navy-900);
-  color: var(--gold-bright);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.4rem;
-  line-height: 1;
-}
-
-.lifesaving-feature h3 {
-  margin-bottom: 0.7rem;
-  font-size: clamp(1.7rem, 4vw, 2.6rem);
-}
-
-.lifesaving-feature p:last-child {
-  max-width: 62rem;
-  color: var(--muted);
-}
 
 /* Sign-request fields appear only when the lawn-sign option is selected. */
 .sign-fields {
@@ -2941,10 +2905,6 @@ img {
   .experience-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .lifesaving-feature {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
 }
 
 @media (min-width: 64rem) {
@@ -2963,8 +2923,7 @@ img {
 
 @media print {
   .family-feature,
-  .experience-card,
-  .lifesaving-feature {
+  .experience-card {
     break-inside: avoid;
   }
 }
@@ -3253,7 +3212,7 @@ section,
 }
 
 /* =========================================================
-   ARCHIVAL BUSINESS AND LIFE-SAVING FEATURES
+   ARCHIVAL BUSINESS FEATURE
    Added for Mike Foley campaign record updates.
 ========================================================= */
 
@@ -3298,21 +3257,6 @@ section,
   color: var(--muted);
 }
 
-.lifesaving-feature__media {
-  display: grid;
-  margin: 0;
-  place-items: center;
-  padding: clamp(0.75rem, 2vw, 1.1rem);
-  background: #ece8df;
-}
-
-.lifesaving-feature__image {
-  width: 100%;
-  height: auto;
-  max-height: 32rem;
-  object-fit: contain;
-  box-shadow: 0 12px 30px rgba(3, 20, 43, 0.14);
-}
 
 @media (min-width: 48rem) {
   .experience-archive {
@@ -3322,11 +3266,6 @@ section,
 
   .experience-archive__content {
     padding: clamp(1.6rem, 4vw, 2.7rem);
-  }
-
-  .lifesaving-feature {
-    grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
-    align-items: center;
   }
 }
 
