@@ -3433,3 +3433,433 @@ section,
   object-fit: contain !important;
   object-position: center !important;
 }
+
+/* =========================================================
+   CONTENT AND LAYOUT UPDATE — V19
+   Supports the revised community grid, embedded experience
+   imagery, and combined lawn-sign / volunteer form.
+========================================================= */
+
+/* ---------------------------------------------------------
+   ACTIVE IN OUR COMMUNITY
+   Six equal cards: one column on mobile, two on tablet,
+   and three on desktop. Images are contained so portrait
+   and document-style assets are never cut off.
+--------------------------------------------------------- */
+.community-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: clamp(1rem, 2vw, 1.35rem);
+  align-items: stretch !important;
+}
+
+.community-card,
+.community-card--large,
+.community-card--wide {
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  align-self: stretch !important;
+  flex-direction: column;
+  grid-column: auto !important;
+}
+
+.community-card__image,
+.community-card--landscape .community-card__image,
+.community-card--portrait .community-card__image,
+.community-card--portrait-group .community-card__image,
+.community-card--relay .community-card__image,
+.community-card--fundraiser .community-card__image {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: 16 / 10 !important;
+  padding: clamp(0.35rem, 1vw, 0.65rem);
+  background: #e8eef2;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.community-card figcaption {
+  display: flex;
+  flex: 1;
+  gap: 0.45rem;
+  flex-direction: column;
+  padding: clamp(1rem, 2.5vw, 1.3rem);
+}
+
+.community-card figcaption strong {
+  font-size: clamp(1.08rem, 2vw, 1.28rem);
+  line-height: 1.3;
+}
+
+.community-card figcaption p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+/* Keep the full Smile Cookie clipping visible inside its card. */
+.community-card__image[src*="sweet-smiles-wasaga-beach"] {
+  padding: clamp(0.65rem, 1.5vw, 1rem);
+  background: #ece8df;
+}
+
+/* ---------------------------------------------------------
+   EXPERIENCE CARDS
+   Keeps both cards equal in height and integrates the
+   Wavelength clipping and Upper Grand boardroom photograph.
+--------------------------------------------------------- */
+.experience-grid {
+  align-items: stretch;
+}
+
+.experience-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+}
+
+.experience-card .experience-list {
+  margin-bottom: 1.5rem;
+}
+
+.experience-card__figure {
+  display: grid;
+  gap: 0.65rem;
+  margin: auto 0 0;
+  padding-top: clamp(1.2rem, 3vw, 1.8rem);
+  border-top: 1px solid rgba(7, 29, 58, 0.12);
+}
+
+.experience-card--navy .experience-card__figure {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.experience-card__figure .experience-archive__media {
+  display: grid;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  place-items: center;
+  border: 1px solid rgba(7, 29, 58, 0.12);
+  background: #e8eef2;
+}
+
+.experience-card--navy .experience-card__figure .experience-archive__media {
+  border-color: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.experience-card__figure .experience-archive__image {
+  display: block;
+  width: 100%;
+  height: 100% !important;
+  padding: clamp(0.4rem, 1vw, 0.75rem);
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.experience-card__figure figcaption {
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.experience-card--navy .experience-card__figure figcaption {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ---------------------------------------------------------
+   LAWN-SIGN / VOLUNTEER OPTIONS
+   Presents the four support choices as clear selectable tiles.
+--------------------------------------------------------- */
+.volunteer-form [role="group"][aria-labelledby="support-options-label"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.65rem;
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  border: 1px solid rgba(7, 29, 58, 0.14);
+  border-radius: 0.45rem;
+  background: rgba(232, 238, 242, 0.52);
+}
+
+#support-options-label {
+  grid-column: 1 / -1;
+  margin: 0 0 0.2rem;
+  color: var(--navy-850);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+#support-options-label strong {
+  font-size: 0.9rem;
+}
+
+#support-options-label small {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.volunteer-form [role="group"][aria-labelledby="support-options-label"]
+  .consent-field {
+  min-height: 3.45rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(7, 29, 58, 0.14);
+  border-radius: 0.38rem;
+  background: var(--white);
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.volunteer-form [role="group"][aria-labelledby="support-options-label"]
+  .consent-field:hover {
+  border-color: rgba(201, 162, 77, 0.72);
+  background: #fffdf7;
+  box-shadow: 0 0.35rem 1rem rgba(7, 29, 58, 0.07);
+  transform: translateY(-1px);
+}
+
+.volunteer-form [role="group"][aria-labelledby="support-options-label"]
+  .consent-field:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(243, 229, 189, 0.42);
+  box-shadow: 0 0 0 0.18rem rgba(201, 162, 77, 0.12);
+}
+
+.volunteer-form [role="group"][aria-labelledby="support-options-label"]
+  .consent-field input {
+  accent-color: var(--navy-700);
+}
+
+.volunteer-form [role="group"][aria-labelledby="support-options-label"]
+  .consent-field > span {
+  color: var(--navy-850) !important;
+  font-size: 0.78rem !important;
+  font-weight: 750 !important;
+  line-height: 1.35;
+}
+
+/* Give the longer safer-schools heading a comfortable measure. */
+#news-title {
+  max-width: 22ch;
+}
+
+/* ---------------------------------------------------------
+   RESPONSIVE LAYOUTS
+--------------------------------------------------------- */
+@media (min-width: 40rem) {
+  .volunteer-form [role="group"][aria-labelledby="support-options-label"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48rem) {
+  .community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  .community-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .experience-card__figure .experience-archive__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .volunteer-form [role="group"][aria-labelledby="support-options-label"]
+    .consent-field {
+    min-height: 3.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volunteer-form [role="group"][aria-labelledby="support-options-label"]
+    .consent-field {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   TYPOGRAPHY AND IMAGE-FIT REFINEMENT — V20
+   Reduces oversized section headings and lets community and
+   experience imagery use proportions closer to each source.
+========================================================= */
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+   Keep the editorial hierarchy while reducing the amount of
+   vertical and horizontal space occupied by section titles.
+--------------------------------------------------------- */
+.section-title {
+  max-width: 20ch;
+  margin-bottom: 0.85rem;
+  font-size: clamp(1.95rem, 4.8vw, 3.7rem);
+  line-height: 1.02;
+}
+
+.section-heading {
+  gap: 0.95rem;
+  margin-bottom: clamp(2.1rem, 4.5vw, 3.6rem);
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 0.7rem;
+}
+
+.section-heading__intro {
+  font-size: clamp(0.94rem, 1.5vw, 1rem);
+}
+
+.record-showcase__heading h3,
+.gallery-heading h3 {
+  font-size: clamp(1.65rem, 3.4vw, 2.5rem);
+  line-height: 1.08;
+}
+
+.closing-cta h2 {
+  max-width: 18ch;
+  font-size: clamp(2rem, 4.8vw, 3.65rem);
+  line-height: 1.02;
+}
+
+/* The longer public-service title needs a more compact scale. */
+.experience-card--navy h3 {
+  max-width: 24ch;
+  font-size: clamp(1.45rem, 2.7vw, 2.05rem);
+  line-height: 1.14;
+}
+
+/* ---------------------------------------------------------
+   EXPERIENCE-CARD IMAGES
+   Remove the forced landscape frame. Each portrait/document
+   image now uses its natural ratio and a sensible max height.
+--------------------------------------------------------- */
+.experience-card__figure {
+  justify-items: center;
+}
+
+.experience-card__figure .experience-archive__media,
+.experience-card--navy .experience-card__figure .experience-archive__media {
+  width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
+  aspect-ratio: auto;
+  margin-inline: auto;
+  border-radius: 0.18rem;
+}
+
+.experience-card__figure .experience-archive__image {
+  display: block;
+  width: auto;
+  height: auto !important;
+  max-width: 100%;
+  max-height: clamp(24rem, 46vw, 34rem);
+  padding: 0;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.experience-card__figure figcaption {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   ACTIVE IN OUR COMMUNITY
+   Cards no longer force every image into the same landscape
+   box. Natural image ratios avoid letterboxing and large gaps.
+--------------------------------------------------------- */
+.community-grid {
+  grid-auto-flow: row dense;
+  align-items: start !important;
+}
+
+.community-card,
+.community-card--large,
+.community-card--wide {
+  height: auto !important;
+  align-self: start !important;
+}
+
+.community-card__image,
+.community-card--landscape .community-card__image,
+.community-card--portrait .community-card__image,
+.community-card--portrait-group .community-card__image,
+.community-card--relay .community-card__image,
+.community-card--fundraiser .community-card__image,
+.community-card__image[src*="sweet-smiles-wasaga-beach"] {
+  display: block;
+  width: 100%;
+  height: auto !important;
+  max-height: none;
+  aspect-ratio: auto !important;
+  padding: 0;
+  background: #e8eef2;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+.community-card figcaption {
+  flex: 0 0 auto;
+}
+
+/* Use wider cards for the two naturally landscape stories. */
+@media (min-width: 48rem) {
+  .community-card:nth-child(1),
+  .community-card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  .community-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .community-card:nth-child(1) {
+    grid-column: 1 / span 2 !important;
+  }
+
+  .community-card:nth-child(2) {
+    grid-column: 3 !important;
+  }
+
+  .community-card:nth-child(3) {
+    grid-column: 1 !important;
+  }
+
+  .community-card:nth-child(4) {
+    grid-column: 2 !important;
+  }
+
+  .community-card:nth-child(6) {
+    grid-column: 3 !important;
+  }
+
+  .community-card:nth-child(5) {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .section-title {
+    font-size: clamp(1.85rem, 9vw, 2.65rem);
+  }
+
+  .experience-card__figure .experience-archive__image {
+    max-height: 28rem;
+  }
+}
