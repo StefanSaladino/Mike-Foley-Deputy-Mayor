@@ -3087,6 +3087,10 @@ section,
    SITE-WIDE PRIVACY CONSENT NOTICE
 ========================================================= */
 
+.privacy-page .privacy-header .campaign-brand__name {
+  color: var(--navy-950);
+}
+
 .privacy-consent {
   position: fixed;
   z-index: 2000;
