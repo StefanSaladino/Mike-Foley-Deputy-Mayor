@@ -3959,3 +3959,16 @@ section,
     width: 100%;
   }
 }
+
+/* =========================================================
+   CAROUSEL LONG-CONTENT TOP ALIGNMENT — V23
+   Long slides must begin at the top of the scrollable content
+   panel instead of being vertically centred and clipped.
+========================================================= */
+
+.record-carousel__content {
+  justify-content: flex-start;
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
