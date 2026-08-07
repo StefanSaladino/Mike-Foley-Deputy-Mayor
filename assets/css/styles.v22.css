@@ -3087,10 +3087,6 @@ section,
    SITE-WIDE PRIVACY CONSENT NOTICE
 ========================================================= */
 
-.privacy-page .privacy-header .campaign-brand__name {
-  color: var(--navy-950);
-}
-
 .privacy-consent {
   position: fixed;
   z-index: 2000;
@@ -3865,5 +3861,101 @@ section,
 
   .experience-card__figure .experience-archive__image {
     max-height: 28rem;
+  }
+}
+
+/* =========================================================
+   PRIVACY HEADER BRAND CONTRAST
+   Keep this override scoped to the privacy page only.
+========================================================= */
+
+.privacy-page .privacy-header .campaign-brand__name {
+  color: var(--navy-950);
+}
+
+
+/* =========================================================
+   V22 CONTENT AND LAYOUT REFINEMENTS
+========================================================= */
+
+/* Long first-slide quotation remains readable within the fixed carousel. */
+.record-carousel__quote {
+  position: relative;
+  z-index: 1;
+  max-width: 43rem;
+  margin: 0.85rem 0;
+  padding: 0.8rem 0 0.8rem 1rem;
+  border-left: 3px solid var(--gold);
+  color: var(--navy-900);
+}
+
+.record-carousel__quote p {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.86rem, 1.6vw, 1rem);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.record-carousel__quote cite {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Seven-card community layout: wide stories pair with portrait cards without gaps. */
+.community-grid > .community-card {
+  grid-column: auto !important;
+}
+
+.community-card--terry .community-card__image {
+  width: 100%;
+  max-height: 34rem;
+  object-fit: cover !important;
+  object-position: center 34% !important;
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .community-card--span-two,
+  .community-card:last-child {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (min-width: 64rem) {
+  .community-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .community-card--span-two {
+    grid-column: span 2 !important;
+  }
+
+  .community-card--environment {
+    grid-column: auto !important;
+  }
+}
+
+/* Keep the direct campaign contact choices aligned with the main support action. */
+.closing-cta__actions .button {
+  min-height: 3rem;
+}
+
+@media (max-width: 47.99rem) {
+  .closing-cta__actions {
+    align-items: stretch;
+  }
+
+  .closing-cta__actions .button {
+    width: 100%;
   }
 }
