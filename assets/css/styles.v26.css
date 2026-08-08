@@ -4132,18 +4132,9 @@ section,
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  margin-top: auto;
-  padding-top: 2rem;
-}
-
-.testimonial-card__person::before {
-  position: absolute;
-  right: clamp(1.35rem, 3vw, 2rem);
-  bottom: 5.55rem;
-  left: clamp(1.35rem, 3vw, 2rem);
-  height: 1px;
-  content: "";
-  background: rgba(178, 128, 33, 0.38);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(178, 128, 33, 0.38);
 }
 
 .testimonial-card__initial {
@@ -4226,119 +4217,5 @@ section,
 
   .testimonial-card:last-child {
     grid-column: auto;
-  }
-}
-
-/* =========================================================
-   COMMUNITY GRID — FINAL NATURAL-RATIO LAYOUT (V26)
-   Preserve each source image's natural aspect ratio. Desktop
-   uses a deliberate 3-card row followed by a 4-card row so
-   no story is stranded by itself.
-========================================================= */
-.community-grid {
-  width: min(100%, 76rem);
-  margin-inline: auto;
-  grid-template-columns: minmax(0, 1fr) !important;
-  grid-auto-flow: row !important;
-  gap: clamp(0.9rem, 1.6vw, 1.2rem) !important;
-  align-items: start !important;
-}
-
-.community-grid > .community-card,
-.community-grid > .community-card--span-two,
-.community-grid > .community-card--environment,
-.community-grid > .community-card:last-child {
-  display: flex;
-  min-width: 0;
-  height: auto !important;
-  align-self: start !important;
-  flex-direction: column;
-  grid-column: auto !important;
-}
-
-/* Never crop community photographs. Their native proportions drive the media height. */
-.community-grid .community-card__image,
-.community-grid .community-card--landscape .community-card__image,
-.community-grid .community-card--portrait .community-card__image,
-.community-grid .community-card--portrait-group .community-card__image,
-.community-grid .community-card--relay .community-card__image,
-.community-grid .community-card--fundraiser .community-card__image,
-.community-grid .community-card--terry .community-card__image,
-.community-grid .community-card__image[src*="sweet-smiles-wasaga-beach"] {
-  display: block;
-  width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  max-height: none !important;
-  aspect-ratio: auto !important;
-  margin-inline: auto;
-  padding: 0 !important;
-  background: transparent;
-  object-fit: contain !important;
-  object-position: center !important;
-}
-
-/* Portrait sources stay compact while remaining completely visible and uncropped. */
-.community-grid .community-card--relay .community-card__image {
-  width: min(100%, 22rem) !important;
-}
-
-.community-grid .community-card--terry .community-card__image {
-  width: min(100%, 17rem) !important;
-}
-
-.community-grid .community-card--fundraiser .community-card__image {
-  width: min(100%, 21rem) !important;
-}
-
-.community-grid .community-card--portrait-group .community-card__image {
-  width: min(100%, 18rem) !important;
-}
-
-.community-grid .community-card figcaption {
-  gap: 0.35rem;
-  padding: clamp(0.85rem, 1.7vw, 1.1rem) !important;
-}
-
-.community-grid .community-card figcaption strong {
-  font-size: clamp(1rem, 1.45vw, 1.16rem);
-  line-height: 1.28;
-}
-
-.community-grid .community-card figcaption p {
-  font-size: 0.82rem;
-  line-height: 1.58;
-}
-
-/* Tablet: feature story first, then three tidy pairs. */
-@media (min-width: 48rem) and (max-width: 67.99rem) {
-  .community-grid {
-    width: min(100%, 60rem);
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-
-  .community-grid > .community-card:first-child {
-    grid-column: 1 / -1 !important;
-  }
-}
-
-/* Desktop: three cards on row one, four slightly smaller cards on row two. */
-@media (min-width: 68rem) {
-  .community-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-  }
-
-  .community-grid > .community-card:nth-child(-n + 3) {
-    grid-column: span 4 !important;
-  }
-
-  .community-grid > .community-card:nth-child(n + 4) {
-    grid-column: span 3 !important;
-  }
-}
-
-@media (max-width: 47.99rem) {
-  .community-grid {
-    width: min(100%, 34rem);
   }
 }
