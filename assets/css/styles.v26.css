@@ -3972,3 +3972,373 @@ section,
   scroll-padding-top: 1rem;
 }
 
+
+/* =========================================================
+   COMMUNITY GRID BALANCE — V24
+   At tablet widths, keep the opening landscape feature wide,
+   then pair the remaining six stories into three even rows.
+========================================================= */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .community-grid .community-card--span-two,
+  .community-grid .community-card:last-child {
+    grid-column: auto !important;
+  }
+
+  .community-grid .community-card--span-two:first-child {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+
+/* =========================================================
+   COMMUNITY GRID — GUARANTEED PAIRED ROWS V25
+   From tablet widths upward, the opening bicycle story spans
+   both columns. The remaining six stories form three complete
+   two-card rows, preventing an orphaned final card.
+========================================================= */
+@media (min-width: 48rem) {
+  .community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-flow: row !important;
+  }
+
+  .community-grid > .community-card,
+  .community-grid > .community-card--span-two,
+  .community-grid > .community-card--environment,
+  .community-grid > .community-card:last-child {
+    grid-column: auto !important;
+  }
+
+  .community-grid > .community-card:first-child {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+
+/* =========================================================
+   TESTIMONIALS — V26
+   High-contrast endorsement section using initials only.
+========================================================= */
+.testimonials {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 15%, rgba(31, 79, 121, 0.34), transparent 31rem),
+    linear-gradient(145deg, #04152c 0%, var(--navy-950) 52%, #0b3159 100%);
+  color: #fff;
+}
+
+.testimonials::before,
+.testimonials::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+.testimonials::before {
+  top: -6rem;
+  left: -8rem;
+  width: 38rem;
+  height: 10rem;
+  transform: rotate(-8deg);
+}
+
+.testimonials::after {
+  right: -12rem;
+  bottom: -8rem;
+  width: 42rem;
+  height: 12rem;
+  transform: rotate(-7deg);
+}
+
+.testimonials .shell {
+  position: relative;
+  z-index: 1;
+}
+
+.testimonials__heading {
+  max-width: 58rem;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.testimonials__heading .section-title {
+  margin-top: 0.45rem;
+  color: #fff;
+}
+
+.testimonials__intro {
+  max-width: 48rem;
+  margin: 1rem auto 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 1.7vw, 1.12rem);
+  line-height: 1.7;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.testimonial-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  overflow: hidden;
+  border: 1px solid rgba(211, 162, 69, 0.58);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #fffdf8 0%, #f4efe5 100%);
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.18);
+  color: var(--navy-950);
+}
+
+.testimonial-card::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 0.2rem;
+  content: "";
+  background: var(--gold);
+}
+
+.testimonial-card__quote {
+  display: block;
+  height: 2.35rem;
+  margin-bottom: 0.5rem;
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4.75rem;
+  line-height: 0.85;
+}
+
+.testimonial-card blockquote {
+  margin: 0;
+}
+
+.testimonial-card blockquote p {
+  margin: 0;
+  color: #18273a;
+  font-size: clamp(0.98rem, 1.3vw, 1.06rem);
+  line-height: 1.68;
+}
+
+.testimonial-card__person {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.testimonial-card__person::before {
+  position: absolute;
+  right: clamp(1.35rem, 3vw, 2rem);
+  bottom: 5.55rem;
+  left: clamp(1.35rem, 3vw, 2rem);
+  height: 1px;
+  content: "";
+  background: rgba(178, 128, 33, 0.38);
+}
+
+.testimonial-card__initial {
+  display: grid;
+  flex: 0 0 3.6rem;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: var(--navy-950);
+  box-shadow: 0 0.4rem 1.2rem rgba(7, 29, 58, 0.14);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.testimonial-card__person div {
+  min-width: 0;
+}
+
+.testimonial-card__person strong,
+.testimonial-card__person div > span {
+  display: block;
+}
+
+.testimonial-card__person strong {
+  color: var(--navy-950);
+  font-size: 1rem;
+}
+
+.testimonial-card__person div > span {
+  margin-top: 0.18rem;
+  color: #4d5968;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.testimonials__closing {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.7rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 0.9rem;
+  background: rgba(0, 0, 0, 0.12);
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.testimonials__closing span {
+  font-weight: 700;
+}
+
+.testimonials__closing strong {
+  color: var(--gold);
+}
+
+@media (min-width: 48rem) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .testimonial-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 68rem) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .testimonial-card:last-child {
+    grid-column: auto;
+  }
+}
+
+/* =========================================================
+   COMMUNITY GRID — FINAL NATURAL-RATIO LAYOUT (V26)
+   Preserve each source image's natural aspect ratio. Desktop
+   uses a deliberate 3-card row followed by a 4-card row so
+   no story is stranded by itself.
+========================================================= */
+.community-grid {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-flow: row !important;
+  gap: clamp(0.9rem, 1.6vw, 1.2rem) !important;
+  align-items: start !important;
+}
+
+.community-grid > .community-card,
+.community-grid > .community-card--span-two,
+.community-grid > .community-card--environment,
+.community-grid > .community-card:last-child {
+  display: flex;
+  min-width: 0;
+  height: auto !important;
+  align-self: start !important;
+  flex-direction: column;
+  grid-column: auto !important;
+}
+
+/* Never crop community photographs. Their native proportions drive the media height. */
+.community-grid .community-card__image,
+.community-grid .community-card--landscape .community-card__image,
+.community-grid .community-card--portrait .community-card__image,
+.community-grid .community-card--portrait-group .community-card__image,
+.community-grid .community-card--relay .community-card__image,
+.community-grid .community-card--fundraiser .community-card__image,
+.community-grid .community-card--terry .community-card__image,
+.community-grid .community-card__image[src*="sweet-smiles-wasaga-beach"] {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  margin-inline: auto;
+  padding: 0 !important;
+  background: transparent;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Portrait sources stay compact while remaining completely visible and uncropped. */
+.community-grid .community-card--relay .community-card__image {
+  width: min(100%, 22rem) !important;
+}
+
+.community-grid .community-card--terry .community-card__image {
+  width: min(100%, 17rem) !important;
+}
+
+.community-grid .community-card--fundraiser .community-card__image {
+  width: min(100%, 21rem) !important;
+}
+
+.community-grid .community-card--portrait-group .community-card__image {
+  width: min(100%, 18rem) !important;
+}
+
+.community-grid .community-card figcaption {
+  gap: 0.35rem;
+  padding: clamp(0.85rem, 1.7vw, 1.1rem) !important;
+}
+
+.community-grid .community-card figcaption strong {
+  font-size: clamp(1rem, 1.45vw, 1.16rem);
+  line-height: 1.28;
+}
+
+.community-grid .community-card figcaption p {
+  font-size: 0.82rem;
+  line-height: 1.58;
+}
+
+/* Tablet: feature story first, then three tidy pairs. */
+@media (min-width: 48rem) and (max-width: 67.99rem) {
+  .community-grid {
+    width: min(100%, 60rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .community-grid > .community-card:first-child {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* Desktop: three cards on row one, four slightly smaller cards on row two. */
+@media (min-width: 68rem) {
+  .community-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+
+  .community-grid > .community-card:nth-child(-n + 3) {
+    grid-column: span 4 !important;
+  }
+
+  .community-grid > .community-card:nth-child(n + 4) {
+    grid-column: span 3 !important;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .community-grid {
+    width: min(100%, 34rem);
+  }
+}
