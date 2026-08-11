@@ -1,9 +1,7 @@
 name: Apply article replacement update
 
 on:
-  push:
-    branches:
-      - article-replacement-push
+  workflow_dispatch:
 
 permissions:
   contents: write
