@@ -1,0 +1,147 @@
+name: Apply article replacement update
+
+on:
+  push:
+    branches:
+      - article-replacement-push
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: article-replacement-push
+          fetch-depth: 0
+
+      - name: Save staged image chunks
+        run: |
+          mkdir -p /tmp/article-update
+          cp .tmp-article-update/smile1200.*.b64 /tmp/article-update/
+          cp .tmp-article-update/cleanup1200.*.b64 /tmp/article-update/
+
+      - name: Switch to current main
+        run: |
+          git fetch origin main
+          git checkout main
+          git pull --ff-only origin main
+
+      - name: Build replacement images
+        run: |
+          mkdir -p assets/photos
+          cat /tmp/article-update/smile1200.*.b64 | tr -d '\n' | base64 --decode > assets/photos/smile-cookie-campaign-community.v1.webp
+          cat /tmp/article-update/cleanup1200.*.b64 | tr -d '\n' | base64 --decode > assets/photos/spring-shoreline-cleanup.carousel.v1.webp
+          echo "bfb2a2ffe1b34369a90df3b91a8ca14879e84b60b3df6279e81b60df68d2ee91  assets/photos/smile-cookie-campaign-community.v1.webp" | sha256sum -c -
+          echo "b42236d82ab4e37ed88f1384c56b6fd2d29725480bc307b8b5147e376d13d68d  assets/photos/spring-shoreline-cleanup.carousel.v1.webp" | sha256sum -c -
+
+      - name: Update page content
+        shell: python
+        run: |
+          from pathlib import Path
+
+          p = Path("index.html")
+          html = p.read_text()
+
+          old_slide = '''       <article aria-label="2 of 9" aria-roledescription="slide" class="record-carousel__slide record-carousel__slide--document" data-record-slide="" hidden="">
+                  <figure class="record-carousel__media record-carousel__media--document" style='\n                    --media-image: url("./assets/photos/school-fundraiser-article.carousel.v1.webp");\n                  '>
+                   <img alt="Newspaper feature about fundraising for Wasaga Beach student nutrition programs" class="record-carousel__image record-carousel__image--document" decoding="async" height="1080" loading="lazy" src="./assets/photos/school-fundraiser-article.carousel.v1.webp" width="1920"/>
+                  </figure>
+                  <div class="record-carousel__content">
+                   <span class="record-carousel__number">
+                    02
+                   </span>
+                   <p class="record-carousel__tag">
+                    Supporting students
+                   </p>
+                   <h4>
+                    Helping raise $4,000 for local student nutrition.
+                   </h4>
+                   <p>
+                    Mike worked with fellow trustees and community supporters on
+                              a fundraiser that directed $1,000 to each Wasaga Beach
+                              elementary school for student nutrition initiatives.
+                   </p>
+                  </div>
+                 </article>'''
+
+          new_slide = '''       <article aria-label="2 of 9" aria-roledescription="slide" class="record-carousel__slide record-carousel__slide--landscape" data-record-slide="" hidden="">
+                  <figure class="record-carousel__media record-carousel__media--landscape" style='\n                    --media-image: url("./assets/photos/spring-shoreline-cleanup.carousel.v1.webp");\n                  '>
+                   <img alt="Wasaga Beach spring shoreline clean-up poster beside a photo of volunteers on the beach" class="record-carousel__image record-carousel__image--landscape" decoding="async" height="675" loading="lazy" src="./assets/photos/spring-shoreline-cleanup.carousel.v1.webp" width="1200"/>
+                  </figure>
+                  <div class="record-carousel__content">
+                   <span class="record-carousel__number">
+                    02
+                   </span>
+                   <p class="record-carousel__tag">
+                    Community clean-up
+                   </p>
+                   <h4>
+                    Joining the annual spring shoreline clean-up.
+                   </h4>
+                   <p>
+                    On April 19, 2026, despite a freezing-cold day, many residents came out for the annual spring shoreline clean-up at Beach Area 2. Mike joined volunteers and community partners in helping keep Wasaga Beach clean and welcoming.
+                   </p>
+                  </div>
+                 </article>'''
+
+          old_card = '''      <figure class="community-card reveal community-card--landscape community-card--span-two" data-delay="275" data-reveal="image">
+                 <img alt="Sweet Smiles in Wasaga Beach article featuring Mike Foley and the Smile Cookie campaign" class="community-card__image community-card__image--landscape" decoding="async" height="1080" loading="lazy" src="./assets/photos/sweet-smiles-wasaga-beach.carousel.v1.webp" width="1920"/>
+                 <figcaption>
+                  <span>
+                   Student nutrition
+                  </span>
+                  <strong>
+                   Supporting the Smile Cookie campaign for local students
+                  </strong>
+                  <p>
+                   Mike joined school and community partners in celebrating Wasaga Beach's
+                Smile Cookie campaign, which raised $14,530.88 for Eat Well to Excel and
+                local student nutrition programs.
+                  </p>
+                 </figcaption>
+                </figure>'''
+
+          new_card = '''      <figure class="community-card reveal community-card--landscape community-card--span-two" data-delay="275" data-reveal="image">
+                 <img alt="Mike Foley supporting the Smile Cookie campaign alongside a photo of decorated smile cookies" class="community-card__image community-card__image--landscape" decoding="async" height="675" loading="lazy" src="./assets/photos/smile-cookie-campaign-community.v1.webp" width="1200"/>
+                 <figcaption>
+                  <span>
+                   Student nutrition
+                  </span>
+                  <strong>
+                   Supporting the Smile Cookie campaign for local students
+                  </strong>
+                  <p>
+                   Mike joined school and community partners in celebrating Wasaga Beach's Smile Cookie campaign. The effort raised $14,530.88 for Eat Well to Excel, helping support student nutrition programs at Worsley Elementary and Birchview Dunes schools.
+                  </p>
+                 </figcaption>
+                </figure>'''
+
+          assert html.count(old_slide) == 1, f"slide match count: {html.count(old_slide)}"
+          assert html.count(old_card) == 1, f"community card match count: {html.count(old_card)}"
+          html = html.replace(old_slide, new_slide).replace(old_card, new_card)
+          p.write_text(html)
+
+      - name: Verify only intended files changed
+        run: |
+          changed="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' \
+            'assets/photos/smile-cookie-campaign-community.v1.webp' \
+            'assets/photos/spring-shoreline-cleanup.carousel.v1.webp' \
+            'index.html' | sort)"
+          test "$changed" = "$expected"
+          grep -q 'spring-shoreline-cleanup.carousel.v1.webp' index.html
+          grep -q 'smile-cookie-campaign-community.v1.webp' index.html
+          ! grep -q 'school-fundraiser-article.carousel.v1.webp' index.html
+          ! grep -q 'sweet-smiles-wasaga-beach.carousel.v1.webp' index.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/photos/smile-cookie-campaign-community.v1.webp assets/photos/spring-shoreline-cleanup.carousel.v1.webp
+          git commit -m "Replace newspaper articles with campaign photos"
+          git push origin main
