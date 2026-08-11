@@ -23,3 +23,8 @@ python -m http.server 8000
 ```
 
 Open `http://localhost:8000/`.
+
+
+## Netlify deployment
+
+This package is ready for Netlify drag-and-drop deployment. The deploy ZIP should contain the site files at the ZIP root (not nested inside another folder).
