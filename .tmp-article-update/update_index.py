@@ -60,9 +60,20 @@ new_card = '''      <figure class="community-card reveal community-card--landsca
 html, card_count = card_pattern.subn(new_card, html, count=1)
 assert card_count == 1, f"Smile Cookie card replacements: {card_count}"
 
+old_og = "https://stefansaladino.github.io/Mike-Foley-Deputy-Mayor/assets/photos/Mike_Foley_OG_card.png?v=20260730-1"
+new_og = "https://stefansaladino.github.io/Mike-Foley-Deputy-Mayor/assets/photos/Mike_Foley_OG_card.v2.jpg"
+assert html.count(old_og) == 2, f"Unexpected OG card reference count: {html.count(old_og)}"
+html = html.replace(old_og, new_og)
+old_type = '<meta content="image/png" property="og:image:type"/>'
+new_type = '<meta content="image/jpeg" property="og:image:type"/>'
+assert old_type in html, "OG image type metadata not found"
+html = html.replace(old_type, new_type, 1)
+
 assert "school-fundraiser-article.carousel.v1.webp" not in html
 assert "sweet-smiles-wasaga-beach.carousel.v1.webp" not in html
 assert "spring-shoreline-cleanup.carousel.v1.webp" in html
 assert "smile-cookie-campaign-community.v1.webp" in html
+assert "Mike_Foley_OG_card.v2.jpg" in html
+assert "Mike_Foley_OG_card.png?v=20260730-1" not in html
 
 path.write_text(html)
