@@ -1,7 +1,9 @@
-name: Apply article replacement update
+name: Apply campaign content update
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - article-replacement-push
 
 permissions:
   contents: write
@@ -37,23 +39,74 @@ jobs:
           echo "bfb2a2ffe1b34369a90df3b91a8ca14879e84b60b3df6279e81b60df68d2ee91  assets/photos/smile-cookie-campaign-community.v1.webp" | sha256sum -c -
           echo "b42236d82ab4e37ed88f1384c56b6fd2d29725480bc307b8b5147e376d13d68d  assets/photos/spring-shoreline-cleanup.carousel.v1.webp" | sha256sum -c -
 
+      - name: Update Open Graph campaign card tagline
+        run: |
+          python -m pip install --quiet pillow opencv-python-headless numpy
+          python - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont
+          import cv2
+          import numpy as np
+
+          source = "assets/photos/Mike_Foley_OG_card.png"
+          output = "assets/photos/Mike_Foley_OG_card.v2.jpg"
+
+          image = np.array(Image.open(source).convert("RGB"))
+          mask = np.zeros(image.shape[:2], dtype=np.uint8)
+
+          x1, y1, x2, y2 = 70, 300, 690, 410
+          roi = image[y1:y2, x1:x2]
+          brightness = roi.mean(axis=2)
+          dark_text = (
+              (brightness < 125)
+              & (roi[:, :, 2] < 160)
+              & (roi[:, :, 0] < 120)
+          )
+          roi_mask = (dark_text.astype(np.uint8) * 255)
+          kernel = np.ones((5, 5), np.uint8)
+          roi_mask = cv2.dilate(roi_mask, kernel, iterations=2)
+          mask[y1:y2, x1:x2] = roi_mask
+
+          bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+          cleaned = cv2.inpaint(bgr, mask, 5, cv2.INPAINT_TELEA)
+          edited = Image.fromarray(cv2.cvtColor(cleaned, cv2.COLOR_BGR2RGB))
+
+          font = ImageFont.truetype(
+              "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf", 39
+          )
+          draw = ImageDraw.Draw(edited)
+          draw.text(
+              (88, 338),
+              "Commitment to community",
+              font=font,
+              fill=(7, 29, 58),
+          )
+          edited.save(output, "JPEG", quality=88, optimize=True, progressive=True)
+          PY
+          test -s assets/photos/Mike_Foley_OG_card.v2.jpg
+
       - name: Update page content
         run: python /tmp/article-update/update_index.py
 
       - name: Verify only intended files changed
         run: |
           changed="$(git diff --name-only | sort)"
-          expected="$(printf '%s\n' 'assets/photos/smile-cookie-campaign-community.v1.webp' 'assets/photos/spring-shoreline-cleanup.carousel.v1.webp' 'index.html' | sort)"
+          expected="$(printf '%s\n' 'assets/photos/Mike_Foley_OG_card.v2.jpg' 'assets/photos/smile-cookie-campaign-community.v1.webp' 'assets/photos/spring-shoreline-cleanup.carousel.v1.webp' 'index.html' | sort)"
           test "$changed" = "$expected"
           grep -q 'spring-shoreline-cleanup.carousel.v1.webp' index.html
           grep -q 'smile-cookie-campaign-community.v1.webp' index.html
+          grep -q 'Mike_Foley_OG_card.v2.jpg' index.html
+          grep -q 'image/jpeg' index.html
           ! grep -q 'school-fundraiser-article.carousel.v1.webp' index.html
           ! grep -q 'sweet-smiles-wasaga-beach.carousel.v1.webp' index.html
+          ! grep -q 'Mike_Foley_OG_card.png?v=20260730-1' index.html
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html assets/photos/smile-cookie-campaign-community.v1.webp assets/photos/spring-shoreline-cleanup.carousel.v1.webp
-          git commit -m "Replace newspaper articles with campaign photos"
+          git add index.html \
+            assets/photos/Mike_Foley_OG_card.v2.jpg \
+            assets/photos/smile-cookie-campaign-community.v1.webp \
+            assets/photos/spring-shoreline-cleanup.carousel.v1.webp
+          git commit -m "Update campaign photos and community tagline"
           git push origin main
