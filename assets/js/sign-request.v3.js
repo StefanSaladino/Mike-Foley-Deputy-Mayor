@@ -25,10 +25,10 @@
   }
 
   const supportOptions = Array.from(
-    form.querySelectorAll('input[name="support-options"][type="checkbox"]')
+    form.querySelectorAll('input[name="support-options[]"][type="checkbox"]')
   );
   const signOption = form.querySelector(
-    'input[name="support-options"][value="accept-a-sign"]'
+    'input[name="support-options[]"][value="accept-a-sign"]'
   );
   const streetAddress = form.querySelector('input[name="street-address"]');
   const postalCode = form.querySelector('input[name="postal-code"]');

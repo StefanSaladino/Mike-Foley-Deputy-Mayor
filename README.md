@@ -1,6 +1,6 @@
 # Mike Foley for Deputy Mayor
 
-Static campaign website prepared for GitHub Pages and Netlify.
+Static campaign website prepared for Netlify production hosting.
 
 ## Current build
 
@@ -28,3 +28,8 @@ Open `http://localhost:8000/`.
 ## Netlify deployment
 
 This package is ready for Netlify drag-and-drop deployment. The deploy ZIP should contain the site files at the ZIP root (not nested inside another folder).
+
+
+## Production domain
+
+`https://mike4wasagabeach.ca`
