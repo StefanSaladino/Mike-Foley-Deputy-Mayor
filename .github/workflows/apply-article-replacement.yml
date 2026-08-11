@@ -18,11 +18,12 @@ jobs:
           ref: article-replacement-push
           fetch-depth: 0
 
-      - name: Save staged image chunks
+      - name: Save staged update files
         run: |
           mkdir -p /tmp/article-update
           cp .tmp-article-update/smile1200.*.b64 /tmp/article-update/
           cp .tmp-article-update/cleanup1200.*.b64 /tmp/article-update/
+          cp .tmp-article-update/update_index.py /tmp/article-update/
 
       - name: Switch to current main
         run: |
@@ -39,75 +40,12 @@ jobs:
           echo "b42236d82ab4e37ed88f1384c56b6fd2d29725480bc307b8b5147e376d13d68d  assets/photos/spring-shoreline-cleanup.carousel.v1.webp" | sha256sum -c -
 
       - name: Update page content
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-
-          p = Path("index.html")
-          html = p.read_text()
-
-          slide_pattern = re.compile(
-              r'(?s)(?P<indent>\s*)<article aria-label="2 of 9".*?</article>(?=\s*<article aria-label="3 of 9")'
-          )
-          slide_match = slide_pattern.search(html)
-          assert slide_match, "Carousel slide 2 was not found"
-          assert "school-fundraiser-article.carousel.v1.webp" in slide_match.group(0), "Unexpected carousel slide 2 source"
-          indent = slide_match.group("indent")
-          new_slide = f'''{indent}<article aria-label="2 of 9" aria-roledescription="slide" class="record-carousel__slide record-carousel__slide--landscape" data-record-slide="" hidden="">
-          <figure class="record-carousel__media record-carousel__media--landscape" style='\n                    --media-image: url("./assets/photos/spring-shoreline-cleanup.carousel.v1.webp");\n                  '>
-           <img alt="Wasaga Beach spring shoreline clean-up poster beside a photo of volunteers on the beach" class="record-carousel__image record-carousel__image--landscape" decoding="async" height="675" loading="lazy" src="./assets/photos/spring-shoreline-cleanup.carousel.v1.webp" width="1200"/>
-          </figure>
-          <div class="record-carousel__content">
-           <span class="record-carousel__number">
-            02
-           </span>
-           <p class="record-carousel__tag">
-            Community clean-up
-           </p>
-           <h4>
-            Joining the annual spring shoreline clean-up.
-           </h4>
-           <p>
-            On April 19, 2026, despite a freezing-cold day, many residents came out for the annual spring shoreline clean-up at Beach Area 2. Mike joined volunteers and community partners in helping keep Wasaga Beach clean and welcoming.
-           </p>
-          </div>
-         </article>'''
-          html, slide_count = slide_pattern.subn(new_slide, html, count=1)
-          assert slide_count == 1, f"Carousel slide replacements: {slide_count}"
-
-          card_pattern = re.compile(
-              r'(?s)(?P<indent>\s*)<figure class="community-card[^>]*>\s*<img[^>]*sweet-smiles-wasaga-beach\.carousel\.v1\.webp.*?</figure>'
-          )
-          card_match = card_pattern.search(html)
-          assert card_match, "Smile Cookie community card was not found"
-          indent = card_match.group("indent")
-          new_card = f'''{indent}<figure class="community-card reveal community-card--landscape community-card--span-two" data-delay="275" data-reveal="image">
-         <img alt="Mike Foley supporting the Smile Cookie campaign alongside a photo of decorated smile cookies" class="community-card__image community-card__image--landscape" decoding="async" height="675" loading="lazy" src="./assets/photos/smile-cookie-campaign-community.v1.webp" width="1200"/>
-         <figcaption>
-          <span>
-           Student nutrition
-          </span>
-          <strong>
-           Supporting the Smile Cookie campaign for local students
-          </strong>
-          <p>
-           Mike joined school and community partners in celebrating Wasaga Beach's Smile Cookie campaign. The effort raised $14,530.88 for Eat Well to Excel, helping support student nutrition programs at Worsley Elementary and Birchview Dunes schools.
-          </p>
-         </figcaption>
-        </figure>'''
-          html, card_count = card_pattern.subn(new_card, html, count=1)
-          assert card_count == 1, f"Smile Cookie card replacements: {card_count}"
-
-          p.write_text(html)
+        run: python /tmp/article-update/update_index.py
 
       - name: Verify only intended files changed
         run: |
           changed="$(git diff --name-only | sort)"
-          expected="$(printf '%s\n' \
-            'assets/photos/smile-cookie-campaign-community.v1.webp' \
-            'assets/photos/spring-shoreline-cleanup.carousel.v1.webp' \
-            'index.html' | sort)"
+          expected="$(printf '%s\n' 'assets/photos/smile-cookie-campaign-community.v1.webp' 'assets/photos/spring-shoreline-cleanup.carousel.v1.webp' 'index.html' | sort)"
           test "$changed" = "$expected"
           grep -q 'spring-shoreline-cleanup.carousel.v1.webp' index.html
           grep -q 'smile-cookie-campaign-community.v1.webp' index.html
