@@ -1662,7 +1662,7 @@ body.menu-open .menu-toggle {
   place-items: center;
   background:
     linear-gradient(rgba(3, 20, 43, 0.78), rgba(3, 20, 43, 0.88)),
-    url("../photos/wasaga-beach-sunset.webp?v=20260730-1") center / cover no-repeat;
+    url("../photos/wasaga-beach-sunset.v1.webp") center / cover no-repeat;
 }
 
 .thank-you-card {
@@ -3499,12 +3499,6 @@ section,
   line-height: 1.65;
 }
 
-/* Keep the full Smile Cookie clipping visible inside its card. */
-.community-card__image[src*="sweet-smiles-wasaga-beach"] {
-  padding: clamp(0.65rem, 1.5vw, 1rem);
-  background: #ece8df;
-}
-
 /* ---------------------------------------------------------
    EXPERIENCE CARDS
    Keeps both cards equal in height and integrates the
@@ -3799,8 +3793,7 @@ section,
 .community-card--portrait .community-card__image,
 .community-card--portrait-group .community-card__image,
 .community-card--relay .community-card__image,
-.community-card--fundraiser .community-card__image,
-.community-card__image[src*="sweet-smiles-wasaga-beach"] {
+.community-card--fundraiser .community-card__image {
   display: block;
   width: 100%;
   height: auto !important;
